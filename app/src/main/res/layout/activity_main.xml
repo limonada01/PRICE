@@ -8,9 +8,6 @@
 
 
     <include
-
-
-
         layout="@layout/actionbar" />
 
     <TextView
@@ -26,5 +23,28 @@
         app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <TableLayout
+        android:layout_width="409dp"
+        android:layout_height="558dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="100dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
