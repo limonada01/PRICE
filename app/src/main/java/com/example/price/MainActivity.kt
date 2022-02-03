@@ -10,9 +10,11 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import android.widget.Toolbar
-
-
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,26 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.app_bar)
         toolbar.title = "PRICE"
         setSupportActionBar(toolbar)
+    }
+
+    //Retrofit
+    private fun getRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("localhost:3000/api")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    private fun dolarInicio(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = getRetrofit().create(APIService::class.java).getDolaresInicio("/valorTiposDeDolarHoy")
+            val dolaresInicio = call.body()
+            if(call.isSuccessful){
+                //show
+            }else{
+                //error
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
