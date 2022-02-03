@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">PRICE</string>
     <string name="valor_del_dolar">Valor del Dólar</string>
+    <string name="col1">Tipo de Dólar</string>
+    <string name="col2">Venta</string>
+    <string name="col3">Compra</string>
+    //Probando
+    <string name="row1Tipo"></string>
+    <string name="row1Venta"></string>
+    <string name="row1Compra"></string>
 </resources>

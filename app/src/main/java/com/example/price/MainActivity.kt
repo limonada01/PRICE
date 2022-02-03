@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.TableLayout
 import android.widget.Toast
 import android.widget.Toolbar
 import kotlinx.coroutines.CoroutineScope
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
+    //Llamada a api con Retrofit
     private fun dolarInicio(){
         CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(APIService::class.java).getDolaresInicio("/valorTiposDeDolarHoy")
@@ -48,6 +50,11 @@ class MainActivity : AppCompatActivity() {
                 //error
             }
         }
+    }
+
+    //Agregar datos a la tabla
+    private fun addTable() {
+        val tableLayout: TableLayout = findViewById(R.id.tableMain)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
