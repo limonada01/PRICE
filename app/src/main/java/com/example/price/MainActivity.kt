@@ -27,13 +27,13 @@ class MainActivity : AppCompatActivity() {
         toolbar.title = "PRICE"
         setSupportActionBar(toolbar)
 
-        addTable()
+        dolarInicio()
     }
 
     //Retrofit
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("localhost:3000/api")
+            .baseUrl("http://localhost:3000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -41,21 +41,23 @@ class MainActivity : AppCompatActivity() {
     //Llamada a api con Retrofit
     private fun dolarInicio(){
         CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(APIService::class.java).getDolaresInicio("/valorTiposDeDolarHoy")
+            val call = getRetrofit().create(APIService::class.java)
+                .getDolaresInicio("valorTiposDeDolarHoy")
             val dolaresInicio = call.body()
-            if(call.isSuccessful){
-                //show
-            }else{
-                //error
+            runOnUiThread {
+                if (call.isSuccessful) {
+                    val aux = dolaresInicio?.message ?: emptyList()
+                    addTable(aux)
+                } else {
+                    //error
+                }
             }
         }
     }
 
     //Agregar datos a la tabla
-    private fun addTable() {
+    private fun addTable(dolares: List<String>) {
         val tableLayout: TableLayout = findViewById(R.id.tableMain)
-
-        //Acá iría llamada a dolarInicio() que devuelve body
 
         //Lleno tabla dinamicamente
         for(i in 0..4) {
@@ -63,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
             //Lleno columna 1
             val textView1 = TextView(this)
-            textView1.setText("info dolar prueba")
+            textView1.setText(dolares[i])
             tableRow.addView(textView1)
 
             //Llenar resto de columnas

@@ -6,5 +6,5 @@ import retrofit2.http.Url
 
 interface APIService {
     @GET
-    fun getDolaresInicio(@Url url:String): Response<DolarResponse>
+    suspend fun getDolaresInicio(@Url url:String): Response<DolarResponse>
 }
