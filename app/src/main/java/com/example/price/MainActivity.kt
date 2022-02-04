@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TableLayout
-import android.widget.Toast
-import android.widget.Toolbar
+import android.widget.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.app_bar)
         toolbar.title = "PRICE"
         setSupportActionBar(toolbar)
+
+        addTable()
     }
 
     //Retrofit
@@ -55,6 +54,22 @@ class MainActivity : AppCompatActivity() {
     //Agregar datos a la tabla
     private fun addTable() {
         val tableLayout: TableLayout = findViewById(R.id.tableMain)
+
+        //Acá iría llamada a dolarInicio() que devuelve body
+
+        //Lleno tabla dinamicamente
+        for(i in 0..4) {
+            val tableRow = TableRow(this)
+
+            //Lleno columna 1
+            val textView1 = TextView(this)
+            textView1.setText("info dolar prueba")
+            tableRow.addView(textView1)
+
+            //Llenar resto de columnas
+
+            tableLayout.addView(tableRow)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
