@@ -4,13 +4,18 @@ package com.example.price
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.*
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -33,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     //Retrofit
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://localhost:3000/api/")
+            .baseUrl("http://10.0.2.2:3001/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -46,7 +51,8 @@ class MainActivity : AppCompatActivity() {
             val dolaresInicio = call.body()
             runOnUiThread {
                 if (call.isSuccessful) {
-                    val aux = dolaresInicio?.message ?: emptyList()
+                    val aux = dolaresInicio?.dolares ?: JsonArray()
+
                     addTable(aux)
                 } else {
                     //error
@@ -56,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Agregar datos a la tabla
-    private fun addTable(dolares: List<String>) {
+    private fun addTable(dolares: JsonArray) {
         val tableLayout: TableLayout = findViewById(R.id.tableMain)
 
         //Lleno tabla dinamicamente
@@ -65,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
             //Lleno columna 1
             val textView1 = TextView(this)
-            textView1.setText(dolares[i])
+            textView1.setText(dolares[i].toString())
             tableRow.addView(textView1)
 
             //Llenar resto de columnas
