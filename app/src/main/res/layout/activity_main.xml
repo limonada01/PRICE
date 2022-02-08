@@ -17,7 +17,6 @@
         android:id="@+id/textView2"
         android:layout_width="137dp"
         android:layout_height="26dp"
-        android:layout_marginBottom="560dp"
         android:text="@string/valor_del_dolar"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -25,6 +24,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"
         tools:ignore="MissingConstraints" />
 
     <TableLayout
@@ -32,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
+        app:layout_constraintVertical_bias="0.15"
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +49,7 @@
                 android:padding="10sp"
                 android:text="@string/col1"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -57,7 +59,7 @@
                 android:padding="10sp"
                 android:text="@string/col2"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -67,7 +69,7 @@
                 android:padding="10sp"
                 android:text="@string/col3"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
         </TableRow>
 
         <TableRow>

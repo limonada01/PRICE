@@ -4,4 +4,12 @@
     <string name="col1">Tipo de Dólar</string>
     <string name="col2">Venta</string>
     <string name="col3">Compra</string>
+
+    <string-array name="tiposDolar">
+        <item>Oficial</item>
+        <item>Blue</item>
+        <item>MEP</item>
+        <item>Turista</item>
+        <item>Mayorista</item>
+    </string-array>
 </resources>
