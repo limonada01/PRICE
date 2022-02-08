@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,8 +8,10 @@
     tools:context=".MainActivity">
 
 
-    <include
-        layout="@layout/actionbar" />
+    <include layout="@layout/actionbar"/>
+        <!--android:id="@+id/include"-->
+        <!--tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="5dp"-->
 
     <TextView
         android:id="@+id/textView2"
@@ -29,51 +31,47 @@
         android:id="@+id/tableMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="40dp"
         android:background="@android:color/white"
-        android:layout_margin="40dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="40dp">
 
-        <TableRow
-            android:background="@color/colorGreen">
+        <TableRow android:background="@color/colorGreen">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="10sp"
                 android:text="@string/col1"
                 android:textColor="@android:color/white"
-                android:padding="10sp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="10sp"
                 android:text="@string/col2"
                 android:textColor="@android:color/white"
-                android:padding="10sp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="10sp"
                 android:text="@string/col3"
                 android:textColor="@android:color/white"
-                android:padding="10sp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
+                android:textSize="14sp" />
         </TableRow>
 
         <TableRow>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/row1Tipo"
-                android:padding="10sp"
-                android:textSize="12sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
+
         </TableRow>
     </TableLayout>
 
@@ -100,4 +98,4 @@
             android:layout_height="match_parent" />
     </TableLayout>-->
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             val dolaresInicio = call.body()
             runOnUiThread {
                 if (call.isSuccessful) {
-                    val aux = dolaresInicio?.dolares ?: JsonArray()
+                    val aux = dolaresInicio?.dolares ?: emptyList()
 
                     addTable(aux)
                 } else {
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Agregar datos a la tabla
-    private fun addTable(dolares: JsonArray) {
+    private fun addTable(dolares: List<Dolar>) {
         val tableLayout: TableLayout = findViewById(R.id.tableMain)
 
         //Lleno tabla dinamicamente
@@ -71,10 +71,16 @@ class MainActivity : AppCompatActivity() {
 
             //Lleno columna 1
             val textView1 = TextView(this)
-            textView1.setText(dolares[i].toString())
+            textView1.setText(dolares[i].nombre)
             tableRow.addView(textView1)
 
-            //Llenar resto de columnas
+            val textView2 = TextView(this)
+            textView2.setText(dolares[i].venta.toString())
+            tableRow.addView(textView2)
+
+            val textView3 = TextView(this)
+            textView3.setText(dolares[i].compra.toString())
+            tableRow.addView(textView3)
 
             tableLayout.addView(tableRow)
         }
