@@ -1,16 +1,19 @@
 package com.example.price
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 
-class ActivityHistoricos : AppCompatActivity() {
+class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //Probando push
     private lateinit var toolbar:androidx.appcompat.widget.Toolbar
 
@@ -23,6 +26,8 @@ class ActivityHistoricos : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val spinner: Spinner = findViewById(R.id.spinnerHistoricos)
+        spinner.onItemSelectedListener=this
+
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             this,
@@ -34,6 +39,7 @@ class ActivityHistoricos : AppCompatActivity() {
             // Apply the adapter to the spinner
             spinner.adapter = adapter
         }
+
     }
 
 
@@ -72,4 +78,16 @@ class ActivityHistoricos : AppCompatActivity() {
         val quienesSomos= Intent(this,ActivityQuienesSomos::class.java)
         startActivity(quienesSomos)
     }
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        Toast.makeText(this, pos.toString(), Toast.LENGTH_LONG).show()
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
+    }
 }
+
+
+
