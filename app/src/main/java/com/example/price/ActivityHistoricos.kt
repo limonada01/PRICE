@@ -12,6 +12,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //Probando push
@@ -42,6 +44,13 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     }
 
+
+    private fun getRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("http://10.0.2.2:3001/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
 
 
 
