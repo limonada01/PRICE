@@ -4,14 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -52,7 +53,53 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
             .build()
     }
 
+    //Llamada a api con Retrofit
+    private fun dolarHistorico(tipo: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = getRetrofit().create(APIService::class.java)
+                .getDolarHistorico("valoresHistoricosDolar/paginacion/"+tipo.lowercase()+"/"+0+"/"+10)
+            val dolaresHistoricos = call.body()
+            runOnUiThread {
+                if (call.isSuccessful) {
+                    val aux = dolaresHistoricos?.dolarHistorico ?: emptyList()
 
+                    addTable(aux, aux.size)
+                } else {
+                    //error
+                }
+            }
+        }
+    }
+
+    //Agregar datos a la tabla
+    private fun addTable(dolares: List<DolarHistorico>, largo: Int) {
+        val tableLayout: TableLayout = findViewById(R.id.tableHistoricos)
+
+        //Lleno tabla dinamicamente
+        for(i in 0 until largo-1) {
+            val tableRow = TableRow(this)
+
+
+            //Lleno columna 1
+            val textView1 = TextView(this)
+            textView1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
+
+            textView1.setText(dolares[i].fecha)
+            tableRow.addView(textView1)
+
+            val textView2 = TextView(this)
+            textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
+            textView2.setText(dolares[i].venta.toString())
+            tableRow.addView(textView2)
+
+            val textView3 = TextView(this)
+            textView3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
+            textView3.setText(dolares[i].compra.toString())
+            tableRow.addView(textView3)
+
+            tableLayout.addView(tableRow)
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -91,6 +138,8 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         Toast.makeText(this, pos.toString(), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show()
+        dolarHistorico(parent.getItemAtPosition(pos).toString())
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
