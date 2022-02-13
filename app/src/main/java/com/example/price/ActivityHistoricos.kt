@@ -43,6 +43,7 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
             spinner.adapter = adapter
         }
 
+
     }
 
 
@@ -54,29 +55,31 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
     }
 
     //Llamada a api con Retrofit
-    private fun dolarHistorico(tipo: String){
+    private fun dolarHistorico(tipoDolar:String){
+
         CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(APIService::class.java)
-                .getDolarHistorico("valoresHistoricosDolar/paginacion/"+tipo.lowercase()+"/"+0+"/"+10)
-            val dolaresHistoricos = call.body()
+                .getDolarHistorico("valoresHistoricosDolar/paginacion/oficial/1/10")
+
+            val dolarHis = call.body()
+
             runOnUiThread {
                 if (call.isSuccessful) {
-                    val aux = dolaresHistoricos?.dolarHistorico ?: emptyList()
-
-                    addTable(aux, aux.size)
+                    val aux = dolarHis?.dolarHistorico ?: emptyList()
+                    println("HOLA:   ... .. ")
+                    addTable(aux)
                 } else {
                     //error
                 }
             }
         }
     }
-
     //Agregar datos a la tabla
-    private fun addTable(dolares: List<DolarHistorico>, largo: Int) {
+    private fun addTable(dolarHistorico: List<DolarHistorico>) {
         val tableLayout: TableLayout = findViewById(R.id.tableHistoricos)
 
         //Lleno tabla dinamicamente
-        for(i in 0 until largo-1) {
+        for(i in 0..8) {
             val tableRow = TableRow(this)
 
 
@@ -84,23 +87,22 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val textView1 = TextView(this)
             textView1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
 
-            textView1.setText(dolares[i].fecha)
+            textView1.setText(dolarHistorico[i].fecha)
             tableRow.addView(textView1)
 
             val textView2 = TextView(this)
             textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView2.setText(dolares[i].venta.toString())
+            textView2.setText(dolarHistorico[i].venta.toString())
             tableRow.addView(textView2)
 
             val textView3 = TextView(this)
             textView3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView3.setText(dolares[i].compra.toString())
+            textView3.setText(dolarHistorico[i].compra.toString())
             tableRow.addView(textView3)
 
             tableLayout.addView(tableRow)
         }
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menuprincipal,menu)
@@ -138,8 +140,9 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         Toast.makeText(this, pos.toString(), Toast.LENGTH_LONG).show()
-        Toast.makeText(this, parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show()
-        dolarHistorico(parent.getItemAtPosition(pos).toString())
+        dolarHistorico(resources.getStringArray(R.array.tiposDolar)[pos])
+
+
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {

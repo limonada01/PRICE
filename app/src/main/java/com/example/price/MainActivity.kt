@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         dolarInicio()
+
+
     }
 
     //Retrofit
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     //Agregar datos a la tabla
     private fun addTable(dolares: List<Dolar>) {
-        val tableLayout: TableLayout = findViewById(R.id.tableHistoricos)
+        val tableLayout: TableLayout = findViewById(R.id.tableMain)
 
         //Lleno tabla dinamicamente
         for(i in 0..4) {
