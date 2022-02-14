@@ -20,6 +20,7 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
     //Probando push
     private lateinit var toolbar:androidx.appcompat.widget.Toolbar
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_historicos)
@@ -34,7 +35,7 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             this,
-            R.array.tiposDolar,
+            R.array.tiposDolarSpinner,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -55,18 +56,18 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
     }
 
     //Llamada a api con Retrofit
-    private fun dolarHistorico(tipoDolar:String){
+    private fun dolarHistorico(tipoDolarPeticion:String){
 
         CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(APIService::class.java)
-                .getDolarHistorico("valoresHistoricosDolar/paginacion/oficial/1/10")
+                .getDolarHistorico("valoresHistoricosDolar/paginacion/$tipoDolarPeticion/1/10")
 
             val dolarHis = call.body()
 
             runOnUiThread {
                 if (call.isSuccessful) {
                     val aux = dolarHis?.dolarHistorico ?: emptyList()
-                    println("HOLA:   ... .. ")
+                    //println("HOLA:   ... .. ")
                     addTable(aux)
                 } else {
                     //error
@@ -76,7 +77,7 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
     }
     //Agregar datos a la tabla
     private fun addTable(dolarHistorico: List<DolarHistorico>) {
-        val tableLayout: TableLayout = findViewById(R.id.tableHistoricos)
+        val tableHistoricos: TableLayout = findViewById(R.id.tableHistoricos)
 
         //Lleno tabla dinamicamente
         for(i in 0..8) {
@@ -100,9 +101,18 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
             textView3.setText(dolarHistorico[i].compra.toString())
             tableRow.addView(textView3)
 
-            tableLayout.addView(tableRow)
+            tableHistoricos.addView(tableRow)
+        }
+
+    }
+
+    fun limpiarTableHistoricos(){
+        val tableHistoricos: TableLayout = findViewById(R.id.tableHistoricos)
+        if(tableHistoricos.childCount>1) {
+            tableHistoricos.removeViews(1, 9)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menuprincipal,menu)
@@ -140,7 +150,9 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         Toast.makeText(this, pos.toString(), Toast.LENGTH_LONG).show()
-        dolarHistorico(resources.getStringArray(R.array.tiposDolar)[pos])
+        //limpiarTABLA
+        limpiarTableHistoricos()
+        dolarHistorico(resources.getStringArray(R.array.tiposDolarPeticion)[pos])
 
 
     }

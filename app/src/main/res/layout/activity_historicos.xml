@@ -79,9 +79,7 @@
                 android:textSize="15sp" />
         </TableRow>
 
-        <TableRow>
 
-        </TableRow>
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

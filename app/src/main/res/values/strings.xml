@@ -6,11 +6,18 @@
     <string name="col3">Compra</string>
     <string name="col4">Fecha</string>
 
-    <string-array name="tiposDolar">
+    <string-array name="tiposDolarSpinner">
         <item>Oficial</item>
         <item>Blue</item>
         <item>MEP</item>
         <item>Turista</item>
         <item>Mayorista</item>
+    </string-array>
+    <string-array name="tiposDolarPeticion">
+        <item>oficial</item>
+        <item>blue</item>
+        <item>mep</item>
+        <item>turista</item>
+        <item>mayorista</item>
     </string-array>
 </resources>
