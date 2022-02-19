@@ -33,6 +33,7 @@ class ActivityQuienesSomos : AppCompatActivity() {
         when(item.itemId){
             R.id.idDolarHoyButton -> activityDolarHoy()
             R.id.idHistoricoButton -> activityHistoricos()
+            R.id.idIngresarDatosButton -> activityIngresarDatos()
             R.id.idQuienesSomosButton -> refreshCurrentActivity()
             // Toast.makeText(this,"valores Historicos paaa",Toast.LENGTH_LONG).show()
             else -> Toast.makeText(this,"ERROR",Toast.LENGTH_LONG).show()
@@ -53,5 +54,10 @@ class ActivityQuienesSomos : AppCompatActivity() {
     fun  activityDolarHoy(){
         val dolarHoy= Intent(this,MainActivity::class.java)
         startActivity(dolarHoy)
+    }
+
+    fun activityIngresarDatos(){
+        val ingresarDatos= Intent(this,ActivityIngresarDatos::class.java)
+        startActivity(ingresarDatos)
     }
 }

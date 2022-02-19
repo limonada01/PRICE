@@ -9,6 +9,9 @@
         android:id="@+id/idHistoricoButton"
         android:title="Histórico" />
     <item
+        android:id="@+id/idIngresarDatosButton"
+        android:title="Ingresar Datos" />
+    <item
         android:id="@+id/idQuienesSomosButton"
         android:title="Quienes Somos" />
 </menu>

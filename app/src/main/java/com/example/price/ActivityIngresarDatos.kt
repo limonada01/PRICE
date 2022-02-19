@@ -16,20 +16,20 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class ActivityIngresarDatos : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //Probando push
     private lateinit var toolbar:androidx.appcompat.widget.Toolbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_historicos)
+        setContentView(R.layout.activity_ingresar_datos)
 
         toolbar = findViewById(R.id.app_bar)
         toolbar.title = "PRICE"
         setSupportActionBar(toolbar)
 
-        val spinner: Spinner = findViewById(R.id.spinnerHistoricos)
+        val spinner: Spinner = findViewById(R.id.spinnerIngresarDatos)
         spinner.onItemSelectedListener=this
 
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -68,48 +68,10 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 if (call.isSuccessful) {
                     val aux = dolarHis?.dolarHistorico ?: emptyList()
                     //println("HOLA:   ... .. ")
-                    addTable(aux)
                 } else {
                     //error
                 }
             }
-        }
-    }
-    //Agregar datos a la tabla
-    private fun addTable(dolarHistorico: List<DolarHistorico>) {
-        val tableHistoricos: TableLayout = findViewById(R.id.tableHistoricos)
-
-        //Lleno tabla dinamicamente
-        for(i in 0..8) {
-            val tableRow = TableRow(this)
-
-
-            //Lleno columna 1
-            val textView1 = TextView(this)
-            textView1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-
-            textView1.setText(dolarHistorico[i].fecha)
-            tableRow.addView(textView1)
-
-            val textView2 = TextView(this)
-            textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView2.setText(dolarHistorico[i].venta.toString())
-            tableRow.addView(textView2)
-
-            val textView3 = TextView(this)
-            textView3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView3.setText(dolarHistorico[i].compra.toString())
-            tableRow.addView(textView3)
-
-            tableHistoricos.addView(tableRow)
-        }
-
-    }
-
-    fun limpiarTableHistoricos(){
-        val tableHistoricos: TableLayout = findViewById(R.id.tableHistoricos)
-        if(tableHistoricos.childCount>1) {
-            tableHistoricos.removeViews(1, 9)
         }
     }
 
@@ -124,8 +86,8 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.idDolarHoyButton -> activityDolarHoy()
-            R.id.idHistoricoButton -> refreshCurrentActivity()
-            R.id.idIngresarDatosButton -> activityIngresarDatos()
+            R.id.idHistoricoButton -> activityHistoricos()
+            R.id.idIngresarDatosButton -> refreshCurrentActivity()
             R.id.idQuienesSomosButton -> activityQuienesSomos()
             // Toast.makeText(this,"valores Historicos paaa",Toast.LENGTH_LONG).show()
             else -> Toast.makeText(this,"ERROR",Toast.LENGTH_LONG).show()
@@ -143,9 +105,9 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
         startActivity(dolarHoy)
     }
 
-    fun activityIngresarDatos(){
-        val ingresarDatos= Intent(this,ActivityIngresarDatos::class.java)
-        startActivity(ingresarDatos)
+    fun activityHistoricos(){
+        val historicos= Intent(this,ActivityHistoricos::class.java)
+        startActivity(historicos)
     }
 
     fun  activityQuienesSomos(){
@@ -156,17 +118,10 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         Toast.makeText(this, pos.toString(), Toast.LENGTH_LONG).show()
-        //limpiarTABLA
-        limpiarTableHistoricos()
+        //limpiarTABLE
         dolarHistorico(resources.getStringArray(R.array.tiposDolarPeticion)[pos])
-
-
     }
-
     override fun onNothingSelected(parent: AdapterView<*>) {
         // Another interface callback
     }
 }
-
-
-

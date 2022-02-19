@@ -21,6 +21,9 @@
             android:name=".ActivityQuienesSomos"
             android:exported="false" />
         <activity
+            android:name=".ActivityIngresarDatos"
+            android:exported="false" />
+        <activity
             android:name=".ActivityHistoricos"
             android:exported="false" />
         <activity
