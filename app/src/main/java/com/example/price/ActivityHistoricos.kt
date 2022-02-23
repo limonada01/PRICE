@@ -88,12 +88,12 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val textView1 = TextView(this)
             textView1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
 
-            textView1.setText(dolarHistorico[i].fecha)
+            textView1.setText(dolarHistorico[i].fecha+"                         ")
             tableRow.addView(textView1)
 
             val textView2 = TextView(this)
             textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView2.setText(dolarHistorico[i].venta.toString())
+            textView2.setText(dolarHistorico[i].venta.toString()+"                     ")
             tableRow.addView(textView2)
 
             val textView3 = TextView(this)

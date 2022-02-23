@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -72,12 +73,13 @@ class MainActivity : AppCompatActivity() {
             val textView1 = TextView(this)
             textView1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
 
-            textView1.setText(dolares[i].nombre)
+            textView1.setText(dolares[i].nombre+"                         ")
+            textView1.gravity=Gravity.LEFT
             tableRow.addView(textView1)
 
             val textView2 = TextView(this)
             textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView2.setText(dolares[i].venta.toString())
+            textView2.setText(dolares[i].venta.toString()+"                     ")
             tableRow.addView(textView2)
 
             val textView3 = TextView(this)
