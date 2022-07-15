@@ -25,3 +25,10 @@ data class DolarHistorico(
     var venta: Double,
     var compra: Double
 )
+
+data class RequestBody(
+    var id: Int,
+    var nombre: String,
+    var venta: Double,
+    var compra: Double
+)

@@ -13,6 +13,7 @@ import android.widget.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -59,24 +60,35 @@ class ActivityIngresarDatos : AppCompatActivity(), AdapterView.OnItemSelectedLis
     private fun dolarHistorico(tipoDolarPeticion:String){
 
         val btnIngresar = findViewById(R.id.btnIngresar) as Button
+        val inputNombre = findViewById(R.id.inputNombre) as EditText
+        val inputVenta = findViewById(R.id.inputVenta) as EditText
+        val inputCompra = findViewById(R.id.inputCompra) as EditText
 
         btnIngresar.setOnClickListener {
+            val jsonObject = JSONObject()
+            jsonObject.put("id", 1000)
+            jsonObject.put("nombre", inputNombre.getText().toString())
+            jsonObject.put("venta", inputVenta.getText().toString())
+            jsonObject.put("compra", inputCompra.getText().toString())
 
-        }
+            val jsonObjectString = jsonObject.toString()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(APIService::class.java)
-                .getDolarHistorico("valoresHistoricosDolar/paginacion/$tipoDolarPeticion/1/10")
+            val requestBody = RequestBody(1000, inputNombre.getText().toString(), inputVenta.getText().toString().toDouble(), inputCompra.getText().toString().toDouble())
 
-            val dolarHis = call.body()
+            CoroutineScope(Dispatchers.IO).launch {
+                val call = getRetrofit().create(APIService::class.java)
+                    .postDolaresInicio(requestBody)
 
-            runOnUiThread {
-                if (call.isSuccessful) {
-                    val aux = dolarHis?.dolarHistorico ?: emptyList()
-                    //println("HOLA:   ... .. ")
-                } else {
-                    //error
-                }
+                /*val dolarHis = call.body()
+
+                runOnUiThread {
+                    if (call.isSuccessful) {
+                        val aux = dolarHis?.dolarHistorico ?: emptyList()
+                        //println("HOLA:   ... .. ")
+                    } else {
+                        //error
+                    }
+                }*/
             }
         }
     }
