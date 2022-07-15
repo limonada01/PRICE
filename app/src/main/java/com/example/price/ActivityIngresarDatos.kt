@@ -58,6 +58,12 @@ class ActivityIngresarDatos : AppCompatActivity(), AdapterView.OnItemSelectedLis
     //Llamada a api con Retrofit
     private fun dolarHistorico(tipoDolarPeticion:String){
 
+        val btnIngresar = findViewById(R.id.btnIngresar) as Button
+
+        btnIngresar.setOnClickListener {
+
+        }
+
         CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(APIService::class.java)
                 .getDolarHistorico("valoresHistoricosDolar/paginacion/$tipoDolarPeticion/1/10")

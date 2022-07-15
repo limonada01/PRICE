@@ -5,10 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.*
 import android.widget.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,8 +61,18 @@ class MainActivity : AppCompatActivity() {
     private fun addTable(dolares: List<Dolar>) {
         val tableLayout: TableLayout = findViewById(R.id.tableMain)
 
+        for(i in 0..4){
+            val registro = LayoutInflater.from(this).inflate(R.layout.table_row, null, false)
+            val tv1 = registro.findViewById<View>(R.id.tv1) as TextView
+            val tv2 = registro.findViewById<View>(R.id.tv2) as TextView
+            val tv3 = registro.findViewById<View>(R.id.tv3) as TextView
+            tv1.text = dolares[i].nombre
+            tv2.text = dolares[i].venta.toString()
+            tv3.text = dolares[i].compra.toString()
+            tableLayout.addView(registro)
+        }
         //Lleno tabla dinamicamente
-        for(i in 0..4) {
+        /*for(i in 0..4) {
             val tableRow = TableRow(this)
 
 
@@ -88,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             tableRow.addView(textView3)
 
             tableLayout.addView(tableRow)
-        }
+        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

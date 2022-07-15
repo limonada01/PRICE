@@ -5,10 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -79,8 +76,18 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
     private fun addTable(dolarHistorico: List<DolarHistorico>) {
         val tableHistoricos: TableLayout = findViewById(R.id.tableHistoricos)
 
+        for(i in 0..8){
+            val registro = LayoutInflater.from(this).inflate(R.layout.table_row, null, false)
+            val tv1 = registro.findViewById<View>(R.id.tv1) as TextView
+            val tv2 = registro.findViewById<View>(R.id.tv2) as TextView
+            val tv3 = registro.findViewById<View>(R.id.tv3) as TextView
+            tv1.text = dolarHistorico[i].fecha
+            tv2.text = dolarHistorico[i].venta.toString()
+            tv3.text = dolarHistorico[i].compra.toString()
+            tableHistoricos.addView(registro)
+        }
         //Lleno tabla dinamicamente
-        for(i in 0..8) {
+        /*for(i in 0..8) {
             val tableRow = TableRow(this)
 
 
@@ -102,7 +109,7 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
             tableRow.addView(textView3)
 
             tableHistoricos.addView(tableRow)
-        }
+        }*/
 
     }
 
