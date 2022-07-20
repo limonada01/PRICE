@@ -1,10 +1,8 @@
 package com.example.price
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -13,7 +11,6 @@ import android.widget.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -60,24 +57,17 @@ class ActivityIngresarDatos : AppCompatActivity(), AdapterView.OnItemSelectedLis
     private fun dolarHistorico(tipoDolarPeticion:String){
 
         val btnIngresar = findViewById(R.id.btnIngresar) as Button
-        val inputNombre = findViewById(R.id.inputNombre) as EditText
+
+        val inputFecha = findViewById(R.id.inputFecha) as EditText
         val inputVenta = findViewById(R.id.inputVenta) as EditText
         val inputCompra = findViewById(R.id.inputCompra) as EditText
 
         btnIngresar.setOnClickListener {
-            val jsonObject = JSONObject()
-            jsonObject.put("id", 1000)
-            jsonObject.put("nombre", inputNombre.getText().toString())
-            jsonObject.put("venta", inputVenta.getText().toString())
-            jsonObject.put("compra", inputCompra.getText().toString())
-
-            val jsonObjectString = jsonObject.toString()
-
-            val requestBody = RequestBody(1000, inputNombre.getText().toString(), inputVenta.getText().toString().toDouble(), inputCompra.getText().toString().toDouble())
+            val requestBody = RequestBody(tipoDolarPeticion, inputFecha.getText().toString(), inputVenta.getText().toString().toDouble(), inputCompra.getText().toString().toDouble())
 
             CoroutineScope(Dispatchers.IO).launch {
                 val call = getRetrofit().create(APIService::class.java)
-                    .postDolaresInicio(requestBody)
+                    .postDolarHistorico(requestBody)
 
                 /*val dolarHis = call.body()
 

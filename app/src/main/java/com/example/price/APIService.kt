@@ -12,6 +12,6 @@ interface APIService {
     suspend fun getDolaresInicio(@Url url:String): Response<DolarResponse>
     @GET
     suspend fun getDolarHistorico(@Url url:String): Response<DolarHistoricoResponse>
-    @POST("valorTiposDeDolarHoy")
-    suspend fun postDolaresInicio(@Body requestBody: RequestBody): Response<DolarResponse>
+    @POST("valoresHistoricosDolar")
+    suspend fun postDolarHistorico(@Body requestBody: RequestBody): Response<DolarResponse>
 }

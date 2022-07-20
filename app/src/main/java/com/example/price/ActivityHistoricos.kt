@@ -86,30 +86,6 @@ class ActivityHistoricos : AppCompatActivity(), AdapterView.OnItemSelectedListen
             tv3.text = dolarHistorico[i].compra.toString()
             tableHistoricos.addView(registro)
         }
-        //Lleno tabla dinamicamente
-        /*for(i in 0..8) {
-            val tableRow = TableRow(this)
-
-
-            //Lleno columna 1
-            val textView1 = TextView(this)
-            textView1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-
-            textView1.setText(dolarHistorico[i].fecha+"                         ")
-            tableRow.addView(textView1)
-
-            val textView2 = TextView(this)
-            textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView2.setText(dolarHistorico[i].venta.toString()+"                     ")
-            tableRow.addView(textView2)
-
-            val textView3 = TextView(this)
-            textView3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView3.setText(dolarHistorico[i].compra.toString())
-            tableRow.addView(textView3)
-
-            tableHistoricos.addView(tableRow)
-        }*/
 
     }
 

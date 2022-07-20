@@ -67,35 +67,11 @@ class MainActivity : AppCompatActivity() {
             val tv2 = registro.findViewById<View>(R.id.tv2) as TextView
             val tv3 = registro.findViewById<View>(R.id.tv3) as TextView
             tv1.text = dolares[i].nombre
-            tv2.text = dolares[i].venta.toString()
-            tv3.text = dolares[i].compra.toString()
+            tv2.text = dolares[i].dato.venta.toString()
+            tv3.text = dolares[i].dato.compra.toString()
             tableLayout.addView(registro)
         }
-        //Lleno tabla dinamicamente
-        /*for(i in 0..4) {
-            val tableRow = TableRow(this)
 
-
-            //Lleno columna 1
-            val textView1 = TextView(this)
-            textView1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-
-            textView1.setText(dolares[i].nombre+"                         ")
-            textView1.gravity=Gravity.LEFT
-            tableRow.addView(textView1)
-
-            val textView2 = TextView(this)
-            textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView2.setText(dolares[i].venta.toString()+"                     ")
-            tableRow.addView(textView2)
-
-            val textView3 = TextView(this)
-            textView3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.0F)
-            textView3.setText(dolares[i].compra.toString())
-            tableRow.addView(textView3)
-
-            tableLayout.addView(tableRow)
-        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

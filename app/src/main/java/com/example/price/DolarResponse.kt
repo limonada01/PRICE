@@ -16,6 +16,10 @@ data class DolarHistoricoResponse(
 )
 data class Dolar(
     var nombre: String,
+    var dato: Dato
+)
+
+data class Dato(
     var venta: Double,
     var compra: Double
 )
@@ -27,8 +31,8 @@ data class DolarHistorico(
 )
 
 data class RequestBody(
-    var id: Int,
-    var nombre: String,
+    var tipo: String,
+    var fecha: String,
     var venta: Double,
     var compra: Double
 )
