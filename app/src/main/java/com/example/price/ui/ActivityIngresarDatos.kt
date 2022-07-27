@@ -1,4 +1,4 @@
-package com.example.price
+package com.example.price.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,20 +8,25 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import com.example.price.R
+import com.example.price.RequestBody
+import com.example.price.databinding.ActivityIngresarDatosBinding
+import com.example.price.network.api.DolarService
+import com.example.price.ui.historico.ActivityHistoricos
+import com.example.price.ui.home.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class ActivityIngresarDatos : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    //Probando push
     private lateinit var toolbar:androidx.appcompat.widget.Toolbar
 
+    private lateinit var binding:ActivityIngresarDatosBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ingresar_datos)
+        binding = ActivityIngresarDatosBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         toolbar = findViewById(R.id.app_bar)
         toolbar.title = "PRICE"
@@ -44,41 +49,25 @@ class ActivityIngresarDatos : AppCompatActivity(), AdapterView.OnItemSelectedLis
 
 
     }
-
-
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:3001/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
     //Llamada a api con Retrofit
-    private fun dolarHistorico(tipoDolarPeticion:String){
+    private fun crearDolarHistorico(tipoDolarPeticion:String){
+        val dolarService = DolarService()
 
-        val btnIngresar = findViewById(R.id.btnIngresar) as Button
+        val btnIngresar = binding.btnIngresar as Button
 
-        val inputFecha = findViewById(R.id.inputFecha) as EditText
-        val inputVenta = findViewById(R.id.inputVenta) as EditText
-        val inputCompra = findViewById(R.id.inputCompra) as EditText
+        val inputFecha = binding.inputFecha as EditText
+        val inputVenta = binding.inputVenta as EditText
+        val inputCompra = binding.inputCompra as EditText
 
         btnIngresar.setOnClickListener {
-            val requestBody = RequestBody(tipoDolarPeticion, inputFecha.getText().toString(), inputVenta.getText().toString().toDouble(), inputCompra.getText().toString().toDouble())
+            if(inputFecha.text.isNotEmpty() && inputVenta.text.isNotEmpty() && inputCompra.text.isNotEmpty()){
+                val requestBody = RequestBody(tipoDolarPeticion, inputFecha.getText().toString(), inputVenta.getText().toString().toDouble(), inputCompra.getText().toString().toDouble())
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val call = getRetrofit().create(APIService::class.java)
-                    .postDolarHistorico(requestBody)
-
-                /*val dolarHis = call.body()
-
-                runOnUiThread {
-                    if (call.isSuccessful) {
-                        val aux = dolarHis?.dolarHistorico ?: emptyList()
-                        //println("HOLA:   ... .. ")
-                    } else {
-                        //error
-                    }
-                }*/
+                CoroutineScope(Dispatchers.IO).launch {
+                    dolarService.postDolarHistorico(requestBody)
+                }
+            }else{
+                Toast.makeText(this,"Ingresar todos los datos",Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -109,17 +98,17 @@ class ActivityIngresarDatos : AppCompatActivity(), AdapterView.OnItemSelectedLis
     }
 
     fun activityDolarHoy(){
-        val dolarHoy= Intent(this,MainActivity::class.java)
+        val dolarHoy= Intent(this, MainActivity::class.java)
         startActivity(dolarHoy)
     }
 
     fun activityHistoricos(){
-        val historicos= Intent(this,ActivityHistoricos::class.java)
+        val historicos= Intent(this, ActivityHistoricos::class.java)
         startActivity(historicos)
     }
 
     fun  activityQuienesSomos(){
-        val quienesSomos= Intent(this,ActivityQuienesSomos::class.java)
+        val quienesSomos= Intent(this, ActivityQuienesSomos::class.java)
         startActivity(quienesSomos)
     }
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
@@ -127,7 +116,7 @@ class ActivityIngresarDatos : AppCompatActivity(), AdapterView.OnItemSelectedLis
         // parent.getItemAtPosition(pos)
         Toast.makeText(this, pos.toString(), Toast.LENGTH_LONG).show()
         //limpiarTABLE
-        dolarHistorico(resources.getStringArray(R.array.tiposDolarPeticion)[pos])
+        crearDolarHistorico(resources.getStringArray(R.array.tiposDolarPeticion)[pos])
     }
     override fun onNothingSelected(parent: AdapterView<*>) {
         // Another interface callback

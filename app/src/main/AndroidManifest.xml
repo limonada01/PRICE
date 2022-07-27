@@ -18,16 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".ActivityQuienesSomos"
+            android:name=".ui.ActivityQuienesSomos"
             android:exported="false" />
         <activity
-            android:name=".ActivityIngresarDatos"
+            android:name=".ui.ActivityIngresarDatos"
             android:exported="false" />
         <activity
-            android:name=".ActivityHistoricos"
+            android:name=".ui.historico.ActivityHistoricos"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.home.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

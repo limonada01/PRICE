@@ -1,4 +1,4 @@
-package com.example.price
+package com.example.price.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
+import com.example.price.R
+import com.example.price.ui.historico.ActivityHistoricos
+import com.example.price.ui.home.MainActivity
 
 class ActivityQuienesSomos : AppCompatActivity() {
 
@@ -47,17 +50,17 @@ class ActivityQuienesSomos : AppCompatActivity() {
     }
 
     fun activityHistoricos(){
-        val historicos= Intent(this,ActivityHistoricos::class.java)
+        val historicos= Intent(this, ActivityHistoricos::class.java)
         startActivity(historicos)
     }
 
     fun  activityDolarHoy(){
-        val dolarHoy= Intent(this,MainActivity::class.java)
+        val dolarHoy= Intent(this, MainActivity::class.java)
         startActivity(dolarHoy)
     }
 
     fun activityIngresarDatos(){
-        val ingresarDatos= Intent(this,ActivityIngresarDatos::class.java)
+        val ingresarDatos= Intent(this, ActivityIngresarDatos::class.java)
         startActivity(ingresarDatos)
     }
 }
