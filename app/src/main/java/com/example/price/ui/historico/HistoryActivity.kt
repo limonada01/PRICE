@@ -1,5 +1,6 @@
 package com.example.price.ui.historico
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -124,14 +125,11 @@ class HistoryActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-        //Toast.makeText(this, pos.toString(), Toast.LENGTH_LONG).show()
+        //Chequeo cual spinner fue seleccionado
         when(parent.id){
             R.id.spinnerHistoricos -> historyViewModel.rangoActual.value?.let {
                 historyViewModel.updateDollars(resources.getStringArray(R.array.tiposDolarPeticion)[pos],
                     it, db, this)
-                Log.d("TEST", "ENTRO A spinnerHistoricos")
             }
             R.id.spinnerRango -> {
                 val rango: Int
@@ -140,13 +138,10 @@ class HistoryActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 }else{
                     rango = 30
                 }
-                Log.d("TEST", "ENTRO A spinnerRango")
                 historyViewModel.tipoActual.value?.let { historyViewModel.updateDollars(it, rango, db, this) }
             }
-            else -> Log.d("TEST", "ERROR parent.id")
+            else -> Log.d(TAG, "ERROR")
         }
-        //historyViewModel.updateDollars(parent.getItemAtPosition(pos).toString(), 7, db, this)
-        //historyViewModel.updateDollars(resources.getStringArray(R.array.tiposDolarPeticion)[pos], 7, db, this)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
