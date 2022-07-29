@@ -18,6 +18,8 @@ data class Dolares(
     @SerializedName("message") val dolares: MutableList<Dolar>
 )
 
+
+//Data class utilizada para POST
 data class RequestBody(
     var tipo: String,
     var fecha: String,

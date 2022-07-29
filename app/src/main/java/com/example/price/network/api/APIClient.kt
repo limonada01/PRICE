@@ -7,9 +7,9 @@ import retrofit2.http.*
 
 interface APIClient {
     @GET("valorTiposDeDolarHoy")
-    suspend fun getDolaresInicio(): Response<Dolares>
-    @GET("valoresHistoricosDolar/paginacion/{tipoDolar}/1/10")
-    suspend fun getDolarHistorico(@Path("tipoDolar") tipoDolar: String): Response<Dolares>
+    suspend fun getDollarHome(): Response<Dolares>
+    @GET("valoresHistoricosDolar/paginacion/{tipoDolar}/1/{rango}")
+    suspend fun getDollarHistory(@Path("tipoDolar") tipoDolar: String, @Path("rango") rango: Int): Response<Dolares>
     @POST("valoresHistoricosDolar")
-    suspend fun postDolarHistorico(@Body requestBody: RequestBody): Response<Dolares>
+    suspend fun postDollarHistory(@Body requestBody: RequestBody): Response<Dolares>
 }

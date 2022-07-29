@@ -1,12 +1,8 @@
 package com.example.price.ui.home
 
 
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.activity.viewModels
@@ -17,12 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.price.*
 import com.example.price.databinding.ActivityMainBinding
-import com.example.price.ui.ActivityIngresarDatos
-import com.example.price.ui.ActivityQuienesSomos
-import com.example.price.ui.historico.ActivityHistoricos
+import com.example.price.ui.InputActivity
+import com.example.price.ui.historico.HistoryActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 
 
@@ -42,22 +36,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /*val currentOrientation = this.resources.configuration.orientation
-        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        } else {
-            this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        }*/
-
         db = Firebase.firestore
-        val settings = firestoreSettings {
-            isPersistenceEnabled = true
-        }
-        db.firestoreSettings = settings
 
         homeViewModel.onCreate(db, this)
 
-        homeViewModel.dolaresModel.observe(this, Observer {
+        homeViewModel.dollarsLiveData.observe(this, Observer {
+            //Actualizo RecyclerView
             tableRecyclerView = binding.homeTableRecyclerView
             homeAdapter = HomeAdapter(it)
 
@@ -66,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         homeViewModel.isLoading.observe(this, Observer {
+            //Actualizo botón de carga
             binding.homeProgress.isVisible = it
         })
 
@@ -74,22 +59,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
     }
 
-    /*override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //Toast.makeText(baseContext, "Landscape Mode", Toast.LENGTH_SHORT).show()
-            this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-            Log.d(TAG, "landscape")
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //Toast.makeText(baseContext, "Portrait Mode", Toast.LENGTH_SHORT).show()
-            this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-            Log.d(TAG, "Portrait")
-        }
-    }*/
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menuprincipal,menu)
+        inflater.inflate(R.menu.menu,menu)
 
         return super.onCreateOptionsMenu(menu)
 
@@ -98,10 +70,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.idDolarHoyButton -> refreshCurrentActivity()
-            R.id.idHistoricoButton -> activityHistoricos()
-            R.id.idIngresarDatosButton -> activityIngresarDatos()
-            R.id.idQuienesSomosButton -> activityQuienesSomos()
-                // Toast.makeText(this,"valores Historicos paaa",Toast.LENGTH_LONG).show()
+            R.id.idHistoricoButton -> historyActivity()
+            R.id.idIngresarDatosButton -> inputActivity()
             else -> Toast.makeText(this,"ERROR",Toast.LENGTH_LONG).show()
         }
 
@@ -112,19 +82,14 @@ class MainActivity : AppCompatActivity() {
         recreate()
     }
 
-    fun activityHistoricos(){
-        val historicos= Intent(this, ActivityHistoricos::class.java)
-        startActivity(historicos)
+    fun historyActivity(){
+        val historyAct= Intent(this, HistoryActivity::class.java)
+        startActivity(historyAct)
     }
 
-    fun activityIngresarDatos(){
-        val ingresarDatos= Intent(this, ActivityIngresarDatos::class.java)
-        startActivity(ingresarDatos)
-    }
-
-    fun  activityQuienesSomos(){
-        val quienesSomos= Intent(this, ActivityQuienesSomos::class.java)
-        startActivity(quienesSomos)
+    fun inputActivity(){
+        val inputAct= Intent(this, InputActivity::class.java)
+        startActivity(inputAct)
     }
 
 }

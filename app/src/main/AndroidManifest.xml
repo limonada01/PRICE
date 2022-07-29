@@ -18,13 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".ui.ActivityQuienesSomos"
+            android:name=".ui.InputActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ActivityIngresarDatos"
-            android:exported="false" />
-        <activity
-            android:name=".ui.historico.ActivityHistoricos"
+            android:name=".ui.historico.HistoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.home.MainActivity"
