@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.historico.HistoryActivity">
 
-    <!--<include
-        android:id="@+id/include"
-        layout="@layout/actionbar" /> -->
     <include layout="@layout/actionbar"/>
 
     <TextView
