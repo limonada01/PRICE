@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityIngresarDatos">
+    tools:context=".ui.InputActivity">
 
     <include layout="@layout/actionbar" />
 
@@ -12,6 +12,7 @@
         android:id="@+id/textView"
         android:layout_width="137dp"
         android:layout_height="26dp"
+        android:layout_marginTop="20dp"
         android:text="Ingresar datos"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -27,6 +28,7 @@
         android:id="@+id/spinnerIngresarDatos"
         android:layout_width="157dp"
         android:layout_height="25dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.841"
